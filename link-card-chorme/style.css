@@ -1,0 +1,324 @@
+/* styles.css */
+:root {
+    --primary-color-start: #6d28d9; /* Mor */
+    --primary-color-end: #4f46e5;   /* İndigo */
+    --secondary-color-start: #3b82f6; /* Mavi - Biraz daha canlı bir mavi */
+    --secondary-color-end: #60a5fa;
+    --accent-color: #ec4899; /* Pembe */
+    --text-color-light: #f9fafb;
+    --text-color-dark: #1f2937;
+    --bg-color-light: #ffffff;
+    --card-bg-color: rgba(255, 255, 255, 0.08); /* Biraz daha opak */
+    --border-color: rgba(255, 255, 255, 0.15); /* Biraz daha görünür */
+    --shadow-color-light: rgba(0, 0, 0, 0.1);
+    --shadow-color-strong: rgba(0, 0, 0, 0.2);
+    --font-family: 'Poppins', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body { /* html ve body'e yükseklik vererek app-container'ın %100 almasını sağlayalım */
+    height: 100%;
+    overflow: hidden; /* Eklenti boyutunu aşan içerik için */
+}
+
+body {
+    font-family: var(--font-family);
+    background: linear-gradient(145deg, var(--primary-color-start) 0%, var(--primary-color-end) 100%);
+    color: var(--text-color-light);
+    width: 360px; /* Genişliği biraz artıralım */
+    min-height: 480px; /* Yüksekliği biraz artıralım */
+    display: flex; /* body'nin kendisini flex yapalım */
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* body'nin tamamını kaplasın */
+    height: 100%; /* body'nin tamamını kaplasın */
+    padding: 20px;
+    animation: fadeIn 0.5s ease-out forwards; /* forwards ile animasyon sonunda kalsın */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px; /* Initial ve Result view'a göre ayarlanabilir */
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    animation: slideDown 0.5s ease-out forwards;
+    flex-shrink: 0; /* Header küçülmesin */
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.logo {
+    width: 32px; /* Biraz küçülttük */
+    height: 32px;
+    margin-right: 10px;
+    filter: drop-shadow(0 1px 2px var(--shadow-color-light));
+}
+
+.app-header h1 {
+    font-size: 1.5em; /* Biraz küçülttük */
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+
+#main-content {
+    flex-grow: 1;
+    display: flex;
+    position: relative;
+    overflow: hidden; /* View geçişleri sırasında taşmayı engelle */
+}
+
+.view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; Her view için ayrı ayarlanabilir */
+    text-align: center;
+    padding: 10px 0; /* View'lere iç boşluk */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px) scale(0.98); /* Başlangıç pozisyonu */
+    transition: opacity 0.35s ease-in-out, transform 0.35s ease-in-out, visibility 0s 0.35s;
+}
+
+.view.active-view {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    transition: opacity 0.35s ease-in-out, transform 0.35s ease-in-out, visibility 0s 0s;
+}
+
+/* Initial View Specific Alignment */
+#initial-view {
+    justify-content: space-around; /* İçeriği dikeyde yay */
+}
+
+.url-display-card {
+    background-color: var(--card-bg-color);
+    padding: 15px; /* Biraz azalttık */
+    border-radius: 10px;
+    margin-bottom: 30px; /* Butonla arasına boşluk */
+    width: 100%;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 3px 10px var(--shadow-color-light);
+    text-align: left;
+}
+
+.card-label {
+    display: block;
+    font-size: 0.75em; /* Biraz küçülttük */
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.url-text {
+    font-size: 0.9em; /* Biraz küçülttük */
+    word-break: break-all;
+    color: var(--text-color-light);
+    line-height: 1.5; /* Satır yüksekliği */
+    max-height: 60px; /* 3-4 satır için yaklaşık */
+    overflow-y: auto; /* Çok uzun URL'ler için kaydırma */
+    padding-right: 5px; /* Kaydırma çubuğu için */
+}
+.url-text::-webkit-scrollbar { width: 4px; }
+.url-text::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 2px;}
+.url-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 2px;}
+
+
+.action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* İkon ve yazı arası */
+    width: 100%;
+    padding: 13px 20px; /* Düğme yüksekliği */
+    font-size: 0.95em;
+    font-weight: 500; /* Biraz daha kalın */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 5px var(--shadow-color-light);
+    text-decoration: none;
+}
+.action-button:disabled {
+    background: rgba(107, 114, 128, 0.5) !important; /* Gri ve yarı saydam */
+    color: rgba(255, 255, 255, 0.5) !important;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none !important;
+}
+.action-button .icon {
+    width: 18px; /* İkon boyutu */
+    height: 18px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2.2; /* Biraz daha kalın çizgi */
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.primary-button {
+    background: linear-gradient(135deg, var(--secondary-color-start), var(--secondary-color-end));
+    color: var(--text-color-light);
+}
+.primary-button:hover:not(:disabled) {
+    transform: translateY(-1px) scale(1.02); /* Hafif yukarı ve büyütme */
+    box-shadow: 0 4px 10px var(--shadow-color-strong);
+}
+
+.secondary-button {
+    background-color: var(--card-bg-color);
+    color: var(--text-color-light);
+    border: 1px solid var(--border-color);
+}
+.secondary-button:hover:not(:disabled) {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255,255,255,0.3);
+}
+
+.tertiary-button {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--border-color);
+}
+.tertiary-button:hover:not(:disabled) {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-color-light);
+}
+
+/* Loading Spinner */
+.spinner {
+  width: 44px; /* Biraz küçülttük */
+  height: 44px;
+  position: relative;
+  margin: 20px auto 15px auto; /* Üst boşluk */
+}
+.double-bounce1, .double-bounce2 {
+  background-color: var(--accent-color);
+  /* Diğer animasyon stilleri aynı */
+  width: 100%; height: 100%; border-radius: 50%; opacity: 0.6; position: absolute; top: 0; left: 0; animation: sk-bounce 2.0s infinite ease-in-out;
+}
+.double-bounce2 { animation-delay: -1.0s; }
+@keyframes sk-bounce { 0%, 100% { transform: scale(0.0); } 50% { transform: scale(1.0); } }
+
+.loading-text {
+    font-size: 0.95em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Result View Specific Alignment */
+#result-view {
+    justify-content: flex-start; /* İçeriği yukarıdan başlat */
+    padding-top: 15px; /* Yukarıdan boşluk */
+}
+.success-title {
+    font-size: 1.2em; /* Biraz küçülttük */
+    font-weight: 600;
+    color: #a7f3d0;
+    margin-bottom: 15px; /* QR'a boşluk */
+}
+.qr-code-wrapper {
+    background-color: var(--bg-color-light);
+    padding: 8px; /* İç boşluk */
+    border-radius: 10px;
+    margin-bottom: 18px; /* Input'a boşluk */
+    box-shadow: 0 3px 12px var(--shadow-color-strong);
+    display: inline-block;
+}
+#qr-code-canvas {
+    display: block;
+    border-radius: 6px; /* Köşeleri yumuşat */
+    /* Boyut JS'den (width: 128) geliyor, gerekirse CSS ile max-width verilebilir */
+}
+.short-link-field {
+    display: flex;
+    width: 100%;
+    margin-bottom: 12px; /* Buton grubuna boşluk */
+    box-shadow: 0 2px 4px var(--shadow-color-light); /* Hafif gölge */
+    border-radius: 8px; /* Köşeleri input ile uyumlu yap */
+}
+#short-link-input {
+    flex-grow: 1;
+    padding: 11px 12px; /* Yüksekliği ayarladık */
+    font-size: 0.9em;
+    border: 1px solid transparent; /* Başlangıçta border yok */
+    border-right: none;
+    background-color: var(--card-bg-color); /* Daha koyu bir iç renk */
+    color: var(--text-color-light);
+    border-radius: 8px 0 0 8px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+#short-link-input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.25); /* Odak efekti */
+}
+.icon-button {
+    padding: 11px 12px; /* Yüksekliği input ile aynı */
+    background-color: var(--card-bg-color); /* Input ile aynı */
+    border: 1px solid var(--border-color);
+    border-left: 1px solid rgba(255,255,255,0.1); /* Hafif ayırıcı */
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.7);
+    transition: background-color 0.2s, color 0.2s;
+}
+.icon-button:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    color: var(--text-color-light);
+}
+.icon-button .icon { width: 16px; height: 16px; display: block; /* Diğer ikon stilleri aynı */ }
+
+.action-buttons-group {
+    display: flex;
+    gap: 12px; /* Butonlar arası boşluk */
+    width: 100%;
+}
+.action-buttons-group .action-button { flex: 1; padding: 11px 15px; font-size: 0.9em; }
+
+
+/* Error View Specific Alignment */
+#error-view {
+    justify-content: center; /* Hata mesajını ortala */
+}
+.error-icon-wrapper { margin-bottom: 12px; }
+.error-icon { width: 40px; height: 40px; stroke: #f87171; }
+.error-title { font-size: 1.1em; font-weight: 600; color: #fca5a5; margin-bottom: 8px; }
+.error-text { font-size: 0.85em; color: rgba(255, 255, 255, 0.75); margin-bottom: 20px; line-height: 1.6; }
+/* Hata metni için kaydırma çubuğu stilleri aynı kalabilir */
+
+.app-footer {
+    text-align: center;
+    padding-top: 15px;
+    margin-top: auto; /* Footer'ı en alta iter, eğer #main-content tam dolmuyorsa */
+    border-top: 1px solid var(--border-color);
+    font-size: 0.75em; /* Biraz küçülttük */
+    color: rgba(255, 255, 255, 0.5);
+    flex-shrink: 0; /* Footer küçülmesin */
+}

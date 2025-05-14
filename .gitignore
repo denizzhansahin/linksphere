@@ -1,0 +1,15 @@
+/link-card/node_modules
+/link-card/dist
+/link-card/build
+
+/link-card-frontend/node_modules
+/link-card-frontend/dist
+/link-card-frontend/build
+
+/link-card-frontend2/node_modules
+/link-card-frontend2/dist
+/link-card-frontend2/build
+
+/link-card-nextjs/node_modules
+/link-card-nextjs/dist
+/link-card-nextjs/build

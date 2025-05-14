@@ -1,0 +1,205 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Link {
+  id: String!
+  asilMetinAdi: String!
+  kisaltmaToken: String!
+  olusturmaTarihi: DateTime!
+  guncellemeTarihi: DateTime!
+  kullanici: Kullanici
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type KisiselLink {
+  id: String!
+  instagram: String
+  facebook: String
+  x: String
+  spotify: String
+  youtube: String
+  linkedin: String
+  reddit: String
+  vk: String
+  medium: String
+  webSite: String
+  favoriMuzikVideom: String
+  youtubeList: String
+  youtubeVideo: String
+  blogSitem: String
+  spotifyList: String
+  alisverisListem: String
+}
+
+type KurumsalLink {
+  id: Float!
+  isEpostasi: String
+  isWebSitesi: String
+  isyeriWebSitesi: String
+  isYeriAdresi: String
+  isTelefonu: String
+  isYeriTelefon: String
+  isYeriEposta: String
+  kullanici: Kullanici
+  olusturmaTarihi: DateTime!
+  guncellemeTarihi: DateTime!
+  isyeriLinkedin: String
+  isyeriTwitter: String
+  isyeriUrunKatalogu: String
+  isyeriBasinKiti: String
+  isyeriKariyerler: String
+  isyeriAdi: String
+}
+
+type Kullanici {
+  id: String!
+  nickname: String!
+  isim: String!
+  soyisim: String!
+  eposta: String!
+  sifre: String!
+  olusturmaTarihi: DateTime!
+  silmeTarihi: DateTime
+  guncellemeTarihi: DateTime!
+  ulke: String
+  fotograf: String
+  linkler: [Link!]
+  kisiselLink: KisiselLink
+  kurumsalLink: KurumsalLink
+  role: String
+}
+
+type Query {
+  kullanicilar: [Kullanici!]!
+  kullaniciBul(id: String!): Kullanici
+  kullaniciBul_profil(nickname: String!): Kullanici
+  getRandomNickname: String!
+  getLinkById(id: String!): Link!
+  getLinkByIdShortUrl(kisaltmaToken: String!): Link!
+  getAllLinks: [Link!]!
+  getKisiselLinkById(id: String!): KisiselLink!
+  getAllKisiselLinks: [KisiselLink!]!
+  getKurumsalLinkById(id: Float!): KurumsalLink!
+  getAllKurumsalLinks: [KurumsalLink!]!
+  getRandomLink: String!
+}
+
+type Mutation {
+  kullaniciOlustur(kullaniciData: KullaniciOlusturDto!): Kullanici!
+  kullaniciGuncelle(kullaniciId: String!, kullaniciGuncelleData: KullaniciGuncelleDto!): Kullanici!
+  kisaLinkOlustur(linkData: KisaLinkOlusturDto!): Link!
+  kisaLinkGuncelle(id: String!, linkData: KisaLinkGuncelleDto!): Link!
+  kisiselLinkOlustur(kisiselLinkData: KisiselLinkOlusturDto!): KisiselLink!
+  kisiselLinkGuncelle(id: String!, kisiselLinkData: KisiselLinkGuncelleDto!): KisiselLink!
+  kurumsalLinkOlustur(kurumsalLinkData: KurumsalLinkOlusturDto!): KurumsalLink!
+  kurumsalLinkGuncelle(id: Float!, kurumsalLinkData: KurumsalLinkGuncelleDto!): KurumsalLink!
+}
+
+input KullaniciOlusturDto {
+  isim: String!
+  soyisim: String!
+  nickname: String!
+  eposta: String!
+  sifre: String!
+  ulke: String
+  fotograf: String
+  role: String!
+}
+
+input KullaniciGuncelleDto {
+  isim: String
+  soyisim: String
+  nickname: String
+  eposta: String
+  sifre: String
+  ulke: String
+  fotograf: String
+  role: String
+}
+
+input KisaLinkOlusturDto {
+  asilMetinAdi: String!
+  kullaniciId: String
+}
+
+input KisaLinkGuncelleDto {
+  asilMetinAdi: String
+  kullaniciId: String
+}
+
+input KisiselLinkOlusturDto {
+  kullaniciId: String!
+  instagram: String
+  facebook: String
+  x: String
+  spotify: String
+  youtube: String
+  linkedin: String
+  reddit: String
+  vk: String
+  medium: String
+  webSite: String
+  favoriMuzikVideom: String
+  youtubeList: String
+  youtubeVideo: String
+  blogSitem: String
+  spotifyList: String
+  alisverisListem: String
+}
+
+input KisiselLinkGuncelleDto {
+  instagram: String
+  facebook: String
+  x: String
+  spotify: String
+  youtube: String
+  linkedin: String
+  reddit: String
+  vk: String
+  medium: String
+  webSite: String
+  favoriMuzikVideom: String
+  youtubeList: String
+  youtubeVideo: String
+  blogSitem: String
+  spotifyList: String
+  alisverisListem: String
+}
+
+input KurumsalLinkOlusturDto {
+  kullaniciId: String!
+  isEpostasi: String
+  isWebSitesi: String
+  isyeriWebSitesi: String
+  isYeriAdresi: String
+  isTelefonu: String
+  isYeriTelefon: String
+  isYeriEposta: String
+  isyeriLinkedin: String
+  isyeriTwitter: String
+  isyeriUrunKatalogu: String
+  isyeriBasinKiti: String
+  isyeriKariyerler: String
+  isyeriAdi: String
+}
+
+input KurumsalLinkGuncelleDto {
+  isEpostasi: String
+  isWebSitesi: String
+  isyeriWebSitesi: String
+  isYeriAdresi: String
+  isTelefonu: String
+  isYeriTelefon: String
+  isYeriEposta: String
+  isyeriTwitter: String
+  isyeriLinkedin: String
+  isyeriUrunKatalogu: String
+  isyeriBasinKiti: String
+  isyeriKariyerler: String
+  isyeriAdi: String
+}
